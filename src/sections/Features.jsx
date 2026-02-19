@@ -65,11 +65,11 @@ const features = [
 
 const Features = () => {
     return (
-        <section id="features" style={{ padding: '120px 0', background: '#ffffff' }}>
-            <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 32px' }}>
+        <section id="features" className="features-section" style={{ padding: '120px 0', background: '#ffffff' }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
 
                 {/* Header */}
-                <div style={{ maxWidth: '600px', marginBottom: '72px' }}>
+                <div style={{ maxWidth: '600px', marginBottom: '72px' }} className="features-header">
                     <div style={{
                         display: 'inline-flex', alignItems: 'center', gap: '8px',
                         padding: '5px 14px', borderRadius: '999px',
@@ -100,9 +100,9 @@ const Features = () => {
                 </div>
 
                 {/* Grid */}
-                <div style={{
+                <div className="features-grid" style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
                     gap: '1px',
                     background: '#f1f5f9',
                     borderRadius: '24px',
@@ -112,6 +112,7 @@ const Features = () => {
                     {features.map((f, i) => (
                         <div
                             key={i}
+                            className="feature-card"
                             style={{
                                 padding: '36px',
                                 background: '#ffffff',
@@ -159,6 +160,18 @@ const Features = () => {
                     ))}
                 </div>
             </div>
+
+            <style>{`
+                @media (max-width: 992px) {
+                    .features-grid { grid-template-columns: repeat(2, 1fr) !important; }
+                    .features-section { padding: 80px 0 !important; }
+                }
+                @media (max-width: 640px) {
+                    .features-grid { grid-template-columns: 1fr !important; border-radius: 16px !important; }
+                    .features-header { text-align: center; margin-bottom: 48px !important; }
+                    .feature-card { padding: 32px !important; }
+                }
+            `}</style>
         </section>
     );
 };

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 const ALL_SCREENS = [
-    'https://play-lh.googleusercontent.com/KNTwQP1WbPcTau5hf5nL6JOo6sp1k3yFcDzzL1KFo2qh33u-B6Ef7vBLzexxxxeNAlgK8TI7jhpVf2ogbKd2Gw=w2560-h1440-rw',
-    'https://play-lh.googleusercontent.com/WZhtiktwBX5_K2qdGVTg1GpreUmYxbcAmTzILw1PXO1VmHN_39hdcB2Al8q-by8z2DMXO6DsZkRiKlCxgGV0=w2560-h1440-rw',
-    'https://play-lh.googleusercontent.com/TNS8TEKv9ZKOUhrqQgacrXfkegnA4wmsimit6bDmKhAzy9mbPa7GonklyMfB1tn9ssxWSDOb57mdUQc4pw4YHzk=w2560-h1440-rw',
-    'https://play-lh.googleusercontent.com/FcqfLzd5u6W-qIY1QdprZGOF5cg8Qc-oexQnh3EvZmNgX55kedtodmjH5mp_DXIQH35mTUmGG4F7se1L91bi_Q=w2560-h1440-rw',
-    'https://play-lh.googleusercontent.com/AAWIOwCDiBELSYeboJmXWLPtGBzkMHg3DpkktLI31bi5ERg8FGBptcrH_yfl3fbkKmMrjcN5lDT_xoWnR6id_3U=w2560-h1440-rw',
-    'https://play-lh.googleusercontent.com/1Lgw5tfN61Aw0ERCy1oBmbJmk-hI-1q3nECjhhFr5QuMV-kkCcVnbKlFNdW0CvvSulkM9CK-NyM-4OaJYTm244Y=w2560-h1440-rw',
+    '/assets/screens/screen1.webp',
+    '/assets/screens/screen2.webp',
+    '/assets/screens/screen3.webp',
+    '/assets/screens/screen4.webp',
+    '/assets/screens/screen5.webp',
+    '/assets/screens/screen6.webp',
 ];
 
 const LABELS = ['Home Screen', 'Browse Services', 'Find Nearby', 'Book a Pro', 'Track Request', 'Reviews'];
@@ -15,18 +15,18 @@ const Screenshots = () => {
     const [active, setActive] = useState(0);
 
     return (
-        <section id="screenshots" style={{ padding: '120px 0', background: '#fafafa', overflow: 'hidden' }}>
-            <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 32px' }}>
+        <section id="screenshots" className="screenshots-section" style={{ padding: '120px 0', background: '#fafafa', overflow: 'hidden' }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
 
                 {/* Two-column layout */}
-                <div style={{
+                <div className="screenshots-grid" style={{
                     display: 'grid',
                     gridTemplateColumns: '1fr 1fr',
                     gap: '80px',
                     alignItems: 'center',
                 }}>
                     {/* Left: text + thumbnails */}
-                    <div>
+                    <div className="screenshots-text">
                         <div style={{
                             display: 'inline-flex', alignItems: 'center', gap: '8px',
                             padding: '5px 14px', borderRadius: '999px',
@@ -53,12 +53,12 @@ const Screenshots = () => {
                             }}>for simplicity.</span>
                         </h2>
 
-                        <p style={{ color: '#64748b', fontSize: '1rem', lineHeight: 1.75, marginBottom: '40px', maxWidth: '420px' }}>
+                        <p style={{ color: '#64748b', fontSize: '1rem', lineHeight: 1.75, marginBottom: '40px', maxWidth: '420px' }} className="screenshots-desc">
                             Every screen is crafted to make your experience effortless — from finding a pro to tracking their arrival.
                         </p>
 
                         {/* Thumbnail grid */}
-                        <div style={{
+                        <div className="thumb-grid" style={{
                             display: 'grid',
                             gridTemplateColumns: 'repeat(3, 1fr)',
                             gap: '12px',
@@ -92,9 +92,9 @@ const Screenshots = () => {
 
                         {/* Label */}
                         <div style={{
-                            marginTop: '20px',
+                            marginTop: '24px',
                             display: 'flex', alignItems: 'center', gap: '10px'
-                        }}>
+                        }} className="active-label">
                             <div style={{
                                 width: '8px', height: '8px', borderRadius: '50%',
                                 background: '#ff8c00', flexShrink: 0
@@ -106,7 +106,7 @@ const Screenshots = () => {
                     </div>
 
                     {/* Right: large phone display */}
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+                    <div className="phone-display" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
                         {/* Background glow */}
                         <div style={{
                             position: 'absolute', top: '50%', left: '50%',
@@ -119,30 +119,24 @@ const Screenshots = () => {
                         {/* Phone */}
                         <div style={{
                             width: '280px',
-                            borderRadius: '48px',
-                            border: '10px solid #0f172a',
+                            borderRadius: '32px',
+                            border: '2px solid rgba(15, 23, 42, 0.15)',
                             overflow: 'hidden',
-                            boxShadow: '0 50px 100px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.08)',
-                            background: '#0f172a',
-                            aspectRatio: '9/19',
+                            boxShadow: '0 50px 100px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05)',
+                            background: '#ffffff',
                             position: 'relative',
                             transition: 'all 0.4s cubic-bezier(0.4,0,0.2,1)',
-                        }}>
-                            {/* Status bar notch */}
-                            <div style={{
-                                position: 'absolute', top: '12px', left: '50%',
-                                transform: 'translateX(-50%)',
-                                width: '80px', height: '7px',
-                                background: '#0f172a', borderRadius: '999px', zIndex: 2
-                            }} />
+                            lineHeight: 0,
+                        }} className="main-phone">
+                            {/* Removed Notch */}
                             <img
                                 key={active}
                                 src={ALL_SCREENS[active]}
                                 alt={LABELS[active]}
                                 style={{
-                                    width: '100%', height: '100%',
-                                    objectFit: 'cover', display: 'block',
-                                    animation: 'fadeIn 0.35s ease',
+                                    width: '100%', height: 'auto',
+                                    display: 'block',
+                                    animation: 'fadeInImg 0.35s ease',
                                 }}
                             />
                         </div>
@@ -151,12 +145,23 @@ const Screenshots = () => {
             </div>
 
             <style>{`
-                @keyframes fadeIn {
+                @keyframes fadeInImg {
                     from { opacity: 0; transform: scale(0.97); }
                     to { opacity: 1; transform: scale(1); }
                 }
-                @media (max-width: 768px) {
-                    #screenshots .two-col { grid-template-columns: 1fr !important; }
+                
+                @media (max-width: 992px) {
+                    .screenshots-grid { grid-template-columns: 1fr !important; gap: 64px !important; text-align: center; }
+                    .screenshots-desc { margin: 0 auto 40px !important; }
+                    .active-label { justify-content: center; }
+                    .thumb-grid { max-width: 480px; margin: 0 auto; }
+                    .phone-display { order: -1; }
+                    .screenshots-section { padding: 80px 0 !important; }
+                }
+
+                @media (max-width: 480px) {
+                    .main-phone { width: 240px !important; border-radius: 20px !important; border-width: 2px !important; }
+                    .thumb-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 8px !important; }
                 }
             `}</style>
         </section>

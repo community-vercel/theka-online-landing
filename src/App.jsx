@@ -4,7 +4,7 @@ import Features from './sections/Features';
 import Screenshots from './sections/Screenshots';
 import CTA from './sections/CTA';
 
-const LOGO_URL = 'https://play-lh.googleusercontent.com/UOGpk5_SOc9SfmhOt2iHKULwVVlRzDwIZzTM0XXrkpfbXn6YyugxWk2lA-Y6Y-WkriF3dFBk7_hqjZz2NbMh=w240-h480-rw';
+const LOGO_URL = '/assets/screens/logo.webp';
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.shaplogicians.theka_online&hl=en';
 
 const NAV_LINKS = [
@@ -16,6 +16,7 @@ const NAV_LINKS = [
 function App() {
     const [scrolled, setScrolled] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
         const onScroll = () => {
@@ -51,12 +52,12 @@ function App() {
                 background: scrolled ? 'rgba(255,255,255,0.88)' : 'rgba(250,250,250,0.6)',
                 backdropFilter: 'blur(24px)',
                 WebkitBackdropFilter: 'blur(24px)',
-                borderBottom: scrolled ? '1px solid rgba(0,0,0,0.07)' : '1px solid transparent',
-                boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.05)' : 'none',
+                borderBottom: (scrolled || isMenuOpen) ? '1px solid rgba(0,0,0,0.07)' : '1px solid transparent',
+                boxShadow: (scrolled || isMenuOpen) ? '0 4px 24px rgba(0,0,0,0.05)' : 'none',
             }}>
                 <div style={{
                     maxWidth: '1200px', margin: '0 auto',
-                    padding: '0 32px', height: '68px',
+                    padding: '0 24px', height: '68px',
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                 }}>
                     {/* Brand */}
@@ -70,7 +71,7 @@ function App() {
                                 boxShadow: '0 2px 10px rgba(255,140,0,0.2)',
                             }}
                         />
-                        <div>
+                        <div className="brand-text">
                             <div style={{
                                 fontSize: '16px', fontWeight: 900, color: '#0f172a',
                                 letterSpacing: '-0.03em', lineHeight: 1,
@@ -82,8 +83,8 @@ function App() {
                         </div>
                     </a>
 
-                    {/* Nav links */}
-                    <nav style={{ display: 'flex', alignItems: 'center', gap: '36px' }}>
+                    {/* Desktop Nav Links */}
+                    <nav className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: '36px' }}>
                         {NAV_LINKS.map(({ label, href }) => (
                             <a
                                 key={label}
@@ -102,40 +103,113 @@ function App() {
                         ))}
                     </nav>
 
-                    {/* CTA */}
-                    <a
-                        href={PLAY_STORE_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    {/* Desktop CTA */}
+                    <div className="desktop-cta">
+                        <a
+                            href={PLAY_STORE_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                display: 'inline-flex', alignItems: 'center', gap: '8px',
+                                padding: '9px 18px',
+                                background: 'linear-gradient(135deg, #ff8c00, #ffb347)',
+                                borderRadius: '10px',
+                                color: '#ffffff', fontWeight: 700, fontSize: '13px',
+                                textDecoration: 'none',
+                                letterSpacing: '-0.01em',
+                                transition: 'all 0.2s ease',
+                                boxShadow: '0 2px 12px rgba(255,140,0,0.35)',
+                            }}
+                            onMouseEnter={e => {
+                                e.currentTarget.style.transform = 'translateY(-1px)';
+                                e.currentTarget.style.boxShadow = '0 6px 20px rgba(255,140,0,0.45)';
+                            }}
+                            onMouseLeave={e => {
+                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.boxShadow = '0 2px 12px rgba(255,140,0,0.35)';
+                            }}
+                        >
+                            <svg width="14" height="14" viewBox="0 0 512 512" fill="none">
+                                <path d="M48 432L264 216 48 0v432z" fill="#EA4335" />
+                                <path d="M336 144l-72 72 72 72 96-72-96-72z" fill="#FBBC04" />
+                                <path d="M48 0l216 216 72-72L120 0H48z" fill="#4285F4" />
+                                <path d="M48 432l216-216 72 72L120 432H48z" fill="#34A853" />
+                            </svg>
+                            Download App
+                        </a>
+                    </div>
+
+                    {/* Mobile Menu Toggle */}
+                    <button
+                        className="mobile-menu-toggle"
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
                         style={{
-                            display: 'inline-flex', alignItems: 'center', gap: '8px',
-                            padding: '9px 18px',
-                            background: 'linear-gradient(135deg, #ff8c00, #ffb347)',
-                            borderRadius: '10px',
-                            color: '#ffffff', fontWeight: 700, fontSize: '13px',
-                            textDecoration: 'none',
-                            letterSpacing: '-0.01em',
-                            transition: 'all 0.2s ease',
-                            boxShadow: '0 2px 12px rgba(255,140,0,0.35)',
-                        }}
-                        onMouseEnter={e => {
-                            e.currentTarget.style.transform = 'translateY(-1px)';
-                            e.currentTarget.style.boxShadow = '0 6px 20px rgba(255,140,0,0.45)';
-                        }}
-                        onMouseLeave={e => {
-                            e.currentTarget.style.transform = 'translateY(0)';
-                            e.currentTarget.style.boxShadow = '0 2px 12px rgba(255,140,0,0.35)';
+                            display: 'none',
+                            background: 'none', border: 'none',
+                            padding: '8px', cursor: 'pointer', color: '#0f172a'
                         }}
                     >
-                        <svg width="14" height="14" viewBox="0 0 512 512" fill="none">
-                            <path d="M48 432L264 216 48 0v432z" fill="#EA4335" />
-                            <path d="M336 144l-72 72 72 72 96-72-96-72z" fill="#FBBC04" />
-                            <path d="M48 0l216 216 72-72L120 0H48z" fill="#4285F4" />
-                            <path d="M48 432l216-216 72 72L120 432H48z" fill="#34A853" />
-                        </svg>
-                        Download App
-                    </a>
+                        {isMenuOpen ? (
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        ) : (
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="3" y1="12" x2="21" y2="12" />
+                                <line x1="3" y1="6" x2="21" y2="6" />
+                                <line x1="3" y1="18" x2="21" y2="18" />
+                            </svg>
+                        )}
+                    </button>
                 </div>
+
+                {/* Mobile Menu Content */}
+                {isMenuOpen && (
+                    <div style={{
+                        position: 'absolute', top: '100%', left: 0, right: 0,
+                        background: '#ffffff', borderBottom: '1px solid rgba(0,0,0,0.1)',
+                        padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px',
+                        boxShadow: '0 10px 20px rgba(0,0,0,0.05)',
+                        animation: 'slideDown 0.3s ease-out'
+                    }}>
+                        {NAV_LINKS.map(({ label, href }) => (
+                            <a
+                                key={label}
+                                href={href}
+                                onClick={() => setIsMenuOpen(false)}
+                                style={{
+                                    fontSize: '16px', fontWeight: 700,
+                                    color: '#0f172a', textDecoration: 'none'
+                                }}
+                            >
+                                {label}
+                            </a>
+                        ))}
+                        <a
+                            href={PLAY_STORE_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                                padding: '14px',
+                                background: 'linear-gradient(135deg, #ff8c00, #ffb347)',
+                                borderRadius: '12px',
+                                color: '#ffffff', fontWeight: 700, fontSize: '15px',
+                                textDecoration: 'none',
+                                boxShadow: '0 4px 12px rgba(255,140,0,0.25)',
+                            }}
+                        >
+                            <svg width="18" height="18" viewBox="0 0 512 512" fill="none">
+                                <path d="M48 432L264 216 48 0v432z" fill="#EA4335" />
+                                <path d="M336 144l-72 72 72 72 96-72-96-72z" fill="#FBBC04" />
+                                <path d="M48 0l216 216 72-72L120 0H48z" fill="#4285F4" />
+                                <path d="M48 432l216-216 72 72L120 432H48z" fill="#34A853" />
+                            </svg>
+                            Download the App
+                        </a>
+                    </div>
+                )}
             </header>
 
             {/* ── Sections ── */}
@@ -147,11 +221,11 @@ function App() {
             </main>
 
             {/* ── Footer ── */}
-            <footer style={{ background: '#0f172a', padding: '80px 32px 40px' }}>
+            <footer style={{ background: '#0f172a', padding: '80px 24px 40px' }}>
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                    <div style={{
+                    <div className="footer-grid" style={{
                         display: 'grid',
-                        gridTemplateColumns: '2fr 1fr 1fr',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                         gap: '64px',
                         marginBottom: '64px',
                         paddingBottom: '64px',
@@ -197,33 +271,33 @@ function App() {
                         </div>
 
                         {/* Product links */}
-                        <div>
-                            <h4 style={{ color: 'rgba(255,255,255,0.3)', fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '20px' }}>Product</h4>
-                            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                                {['Features', 'How it Works', 'Screenshots', 'Download'].map(item => (
-                                    <li key={item}>
-                                        <a href="#" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }}
-                                            onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
-                                            onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
-                                        >{item}</a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Company links */}
-                        <div>
-                            <h4 style={{ color: 'rgba(255,255,255,0.3)', fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '20px' }}>Company</h4>
-                            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                                {['About Us', 'Contact', 'Privacy Policy', 'Terms of Service'].map(item => (
-                                    <li key={item}>
-                                        <a href="#" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }}
-                                            onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
-                                            onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
-                                        >{item}</a>
-                                    </li>
-                                ))}
-                            </ul>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                            <div>
+                                <h4 style={{ color: 'rgba(255,255,255,0.3)', fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '20px' }}>Product</h4>
+                                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                    {['Features', 'How it Works', 'Screenshots', 'Download'].map(item => (
+                                        <li key={item}>
+                                            <a href="#" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }}
+                                                onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
+                                                onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
+                                            >{item}</a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style={{ color: 'rgba(255,255,255,0.3)', fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '20px' }}>Company</h4>
+                                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                    {['About Us', 'Contact', 'Privacy Policy', 'Terms of Service'].map(item => (
+                                        <li key={item}>
+                                            <a href="#" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }}
+                                                onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
+                                                onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
+                                            >{item}</a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
@@ -247,8 +321,20 @@ function App() {
                 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
                 html { scroll-behavior: smooth; }
                 body { margin: 0; -webkit-font-smoothing: antialiased; }
-                @media (max-width: 768px) {
-                    nav { display: none !important; }
+                
+                @keyframes slideDown {
+                    from { transform: translateY(-10px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+
+                @media (max-width: 992px) {
+                    .desktop-nav, .desktop-cta { display: none !important; }
+                    .mobile-menu-toggle { display: block !important; }
+                }
+
+                @media (max-width: 480px) {
+                    .brand-text { display: none !important; }
+                    .footer-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
                 }
             `}</style>
         </div>

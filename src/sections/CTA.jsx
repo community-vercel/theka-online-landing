@@ -3,17 +3,17 @@ import React from 'react';
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.shaplogicians.theka_online&hl=en';
 
 const stats = [
-    { val: '10K+', label: 'Downloads' },
-    { val: '4.8★', label: 'App Rating' },
-    { val: '500+', label: 'Verified Pros' },
-    { val: '24/7', label: 'Support' },
+    // { val: '10K+', label: 'Downloads' },
+    // { val: '4.8★', label: 'App Rating' },
+    // { val: '500+', label: 'Verified Pros' },
+    // { val: '24/7', label: 'Support' },
 ];
 
 const CTA = () => {
     return (
-        <section id="download" style={{ padding: '120px 32px', background: '#ffffff' }}>
+        <section id="download" className="cta-section" style={{ padding: '120px 24px', background: '#ffffff' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                <div style={{
+                <div className="cta-card" style={{
                     background: '#0f172a',
                     borderRadius: '32px',
                     overflow: 'hidden',
@@ -47,7 +47,7 @@ const CTA = () => {
 
                     <div style={{ position: 'relative', zIndex: 1 }}>
                         {/* Two-col layout */}
-                        <div style={{
+                        <div className="cta-content-grid" style={{
                             display: 'grid',
                             gridTemplateColumns: '1fr auto',
                             gap: '48px',
@@ -55,7 +55,7 @@ const CTA = () => {
                             marginBottom: '64px',
                         }}>
                             {/* Left text */}
-                            <div>
+                            <div className="cta-text">
                                 <div style={{
                                     display: 'inline-flex', alignItems: 'center', gap: '8px',
                                     padding: '5px 14px', borderRadius: '999px',
@@ -86,13 +86,13 @@ const CTA = () => {
                                     color: 'rgba(255,255,255,0.5)',
                                     fontSize: '1rem', lineHeight: 1.75,
                                     maxWidth: '460px'
-                                }}>
+                                }} className="cta-para">
                                     Join thousands of users who trust Theka Online to connect with verified professionals in their area.
                                 </p>
                             </div>
 
                             {/* Right: Play Store button */}
-                            <div style={{ flexShrink: 0 }}>
+                            <div style={{ flexShrink: 0 }} className="cta-btn-container">
                                 <a
                                     href={PLAY_STORE_URL}
                                     target="_blank"
@@ -131,7 +131,7 @@ const CTA = () => {
                         </div>
 
                         {/* Stats divider */}
-                        <div style={{
+                        <div className="cta-stats-grid" style={{
                             borderTop: '1px solid rgba(255,255,255,0.08)',
                             paddingTop: '48px',
                             display: 'grid',
@@ -156,6 +156,22 @@ const CTA = () => {
                     </div>
                 </div>
             </div>
+
+            <style>{`
+                @media (max-width: 992px) {
+                    .cta-content-grid { grid-template-columns: 1fr !important; gap: 48px !important; text-align: center; }
+                    .cta-text { display: flex; flex-direction: column; align-items: center; }
+                    .cta-para { margin: 0 auto !important; }
+                    .cta-stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 40px !important; }
+                    .cta-section { padding: 80px 24px !important; }
+                    .cta-card { padding: 56px 32px !important; }
+                }
+
+                @media (max-width: 480px) {
+                    .cta-stats-grid { grid-template-columns: 1fr !important; text-align: center; gap: 32px !important; }
+                    .cta-btn-container a { padding: 16px 28px !important; }
+                }
+            `}</style>
         </section>
     );
 };
