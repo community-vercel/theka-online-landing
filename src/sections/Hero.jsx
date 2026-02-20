@@ -8,7 +8,7 @@ const SCREENS = [
     '/assets/screens/screen3.webp',
 ];
 
-const PhoneFrame = ({ src, featured, className }) => (
+const PhoneFrame = ({ src, alt, featured, className }) => (
     <div className={`phone-frame ${featured ? 'featured' : ''} ${className || ''}`} style={{
         borderRadius: featured ? '28px' : '20px',
         border: '2px solid rgba(15, 23, 42, 0.15)',
@@ -21,7 +21,7 @@ const PhoneFrame = ({ src, featured, className }) => (
         width: '100%',
         lineHeight: 0,
     }}>
-        <img src={src} alt="App Screen" style={{ width: '100%', height: 'auto', display: 'block' }} />
+        <img src={src} alt={alt || "App Screen"} style={{ width: '100%', height: 'auto', display: 'block' }} />
     </div>
 );
 
@@ -227,15 +227,15 @@ const Hero = () => {
                     }} />
 
                     <div className="p-side-left">
-                        <PhoneFrame src={SCREENS[1]} />
+                        <PhoneFrame src={SCREENS[1]} alt="Theka Online app screen showing service Categories" />
                     </div>
 
                     <div className="p-main-center">
-                        <PhoneFrame src={SCREENS[0]} featured />
+                        <PhoneFrame src={SCREENS[0]} alt="Theka Online app main dashboard" featured />
                     </div>
 
                     <div className="p-side-right">
-                        <PhoneFrame src={SCREENS[2]} />
+                        <PhoneFrame src={SCREENS[2]} alt="Theka Online app professional profile" />
                     </div>
 
                     <div className="bottom-fade-overlay" style={{

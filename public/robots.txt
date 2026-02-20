@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://theka-online.vercel.app/sitemap.xml
