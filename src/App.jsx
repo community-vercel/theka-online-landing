@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, Routes, Route } from 'react-router-dom';
 import Hero from './sections/Hero';
 import Features from './sections/Features';
 import Testimonials from './sections/Testimonials';
@@ -21,7 +22,7 @@ function App() {
     const [scrolled, setScrolled] = useState(false);
     const [progress, setProgress] = useState(0);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [currentPage, setCurrentPage] = useState('home');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const onScroll = () => {
@@ -36,10 +37,15 @@ function App() {
     }, []);
 
     return (
-        <>
-            {currentPage === 'privacy' ? (
-                <PrivacyPolicy onClose={() => setCurrentPage('home')} />
-            ) : (
+        <Routes>
+            <Route path="/" element={<HomePage navigate={navigate} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} scrolled={scrolled} progress={progress} />} />
+            <Route path="/privacy" element={<PrivacyPolicy onClose={() => navigate('/')} />} />
+        </Routes>
+    );
+}
+
+function HomePage({ navigate, isMenuOpen, setIsMenuOpen, scrolled, progress }) {
+    return (
             <div style={{ minHeight: '100vh', background: '#ffffff', fontFamily: "'Inter', system-ui, sans-serif" }}>
 
             {/* ── Scroll Progress Bar ── */}
@@ -302,8 +308,8 @@ function App() {
                                     {['About Us', 'Contact', 'Privacy Policy', 'Terms of Service'].map(item => (
                                         <li key={item}>
                                             <a 
-                                                href={item === 'Privacy Policy' ? '#' : '#'} 
-                                                onClick={item === 'Privacy Policy' ? (e) => { e.preventDefault(); setCurrentPage('privacy'); } : undefined}
+                                                href={item === 'Privacy Policy' ? '/privacy' : '#'} 
+                                                onClick={item === 'Privacy Policy' ? (e) => { e.preventDefault(); navigate('/privacy'); } : undefined}
                                                 style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s', cursor: item === 'Privacy Policy' ? 'pointer' : 'default' }}
                                                 onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
                                                 onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
@@ -352,8 +358,6 @@ function App() {
                 }
             `}</style>
             </div>
-            )}
-        </>
     );
 }
 
