@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Routes, Route } from 'react-router-dom';
+import { useNavigate, Routes, Route, href } from 'react-router-dom';
 import Hero from './sections/Hero';
 import Features from './sections/Features';
 import Testimonials from './sections/Testimonials';
 import Screenshots from './sections/Screenshots';
 import CTA from './sections/CTA';
 import PrivacyPolicy from './sections/PrivacyPolicy';
+import ResourcesPage from './pages/ResourcesPage';
 
 const LOGO_URL = '/assets/screens/logo.webp';
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.shaplogicians.theka_online&hl=en';
@@ -15,6 +16,7 @@ const NAV_LINKS = [
     { label: 'Screenshots', href: '#screenshots' },
     { label: 'Download', href: '#download' },
     { label: 'Testimonials', href: '#testimonials' },
+    { label: 'Resources', href: '/resources' }
 
 ];
 
@@ -40,13 +42,14 @@ function App() {
         <Routes>
             <Route path="/" element={<HomePage navigate={navigate} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} scrolled={scrolled} progress={progress} />} />
             <Route path="/privacy" element={<PrivacyPolicy onClose={() => navigate('/')} />} />
+            <Route path="/resources" element={<ResourcesPage />} />
         </Routes>
     );
 }
 
 function HomePage({ navigate, isMenuOpen, setIsMenuOpen, scrolled, progress }) {
     return (
-            <div style={{ minHeight: '100vh', background: '#ffffff', fontFamily: "'Inter', system-ui, sans-serif" }}>
+        <div style={{ minHeight: '100vh', background: '#ffffff', fontFamily: "'Inter', system-ui, sans-serif" }}>
 
             {/* ── Scroll Progress Bar ── */}
             <div style={{
@@ -234,7 +237,6 @@ function HomePage({ navigate, isMenuOpen, setIsMenuOpen, scrolled, progress }) {
                 <Screenshots />
                 <CTA />
                 <Testimonials />
-
             </main>
 
             {/* ── Footer ── */}
@@ -307,8 +309,8 @@ function HomePage({ navigate, isMenuOpen, setIsMenuOpen, scrolled, progress }) {
                                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
                                     {['About Us', 'Contact', 'Privacy Policy', 'Terms of Service'].map(item => (
                                         <li key={item}>
-                                            <a 
-                                                href={item === 'Privacy Policy' ? '/privacy' : '#'} 
+                                            <a
+                                                href={item === 'Privacy Policy' ? '/privacy' : '#'}
                                                 onClick={item === 'Privacy Policy' ? (e) => { e.preventDefault(); navigate('/privacy'); } : undefined}
                                                 style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s', cursor: item === 'Privacy Policy' ? 'pointer' : 'default' }}
                                                 onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
@@ -357,7 +359,7 @@ function HomePage({ navigate, isMenuOpen, setIsMenuOpen, scrolled, progress }) {
                     .footer-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
                 }
             `}</style>
-            </div>
+        </div>
     );
 }
 
